@@ -1,0 +1,16 @@
+*.sln
+*.userprefs
+*.csproj
+*.pidb
+*.unitypackage
+.vscode/*
+.idea/*
+/obj
+
+Build/
+Builds/
+Library/
+Logs/
+Temp/
+Publishing/video/mark_trailer_4k.mp4
+Publishing/video/mark_trailer_hd.mp4
