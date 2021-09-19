@@ -1,9 +1,13 @@
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class GameManager : MonoBehaviour
 {
+    public PlayerCharacter player;
+    public PlayerInput input;
+
+    private bool started;
     
-    // Start is called before the first frame update
     void Start()
     {
         Application.targetFrameRate = 60;
@@ -11,9 +15,23 @@ public class GameManager : MonoBehaviour
         // Time.fixedDeltaTime = 1f / 30f;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RestartGameplay()
     {
         
+    }
+    
+    void Update()
+    {
+        // float inputX = input.keyInput.x + input.dragInput.x;
+        float inputX = input.GetInputDirection().x;
+        if (!started && inputX != 0f)
+        {
+            started = true;
+            player.isGravityEnabled = true;
+        }
+
+        var moveInput = Mathf.Clamp(inputX, -1f, 1f);
+        player.SetMove(moveInput * Time.deltaTime);
+        // player.SetMove(moveInput);
     }
 }
