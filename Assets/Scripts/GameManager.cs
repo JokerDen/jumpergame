@@ -1,20 +1,29 @@
+using System;
 using UnityEngine;
-using UnityEngine.Playables;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
     public PlayerCharacter player;
     public PlayerInput input;
 
+    public GameLevel level;
+
     private bool started;
-    
-    void Start()
+
+    public float playerHeight;
+
+    public static GameManager current;
+
+    private void Awake()
     {
+        current = this;
+        
         Application.targetFrameRate = 60;
         // Time.fixedDeltaTime = 0.02f;
         // Time.fixedDeltaTime = 1f / 30f;
     }
-
+    
     public void RestartGameplay()
     {
         
@@ -33,5 +42,9 @@ public class GameManager : MonoBehaviour
         var moveInput = Mathf.Clamp(inputX, -1f, 1f);
         player.SetMove(moveInput * Time.deltaTime);
         // player.SetMove(moveInput);
+
+        var playerY = player.transform.position.y;
+        if (playerY > playerHeight)
+            playerHeight = playerY;
     }
 }

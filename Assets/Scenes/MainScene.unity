@@ -123,6 +123,36 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &25297596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 25297597}
+  m_Layer: 0
+  m_Name: cam_center
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &25297597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25297596}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1623109690}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &367185928
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,6 +298,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1623109689}
   input: {fileID: 1917466697}
+  level: {fileID: 2011521123}
+  playerHeight: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,7 +429,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.38959596, g: 0.69982696, b: 0.8018868, a: 0}
+  m_BackGroundColor: {r: 0.557856, g: 0.8107643, b: 0.894, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -414,7 +446,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -469,7 +501,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1114016677}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.45, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1623109690}
@@ -548,7 +580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3999261885323065812, guid: 488042f08db94004a821f75cc2abff03, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 488042f08db94004a821f75cc2abff03, type: 3}
@@ -632,6 +664,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1462356239}
+  - component: {fileID: 1462356240}
   m_Layer: 0
   m_Name: cam
   m_TagString: Untagged
@@ -647,13 +680,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1462356238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1462356240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462356238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd065c6010830f049b91422c66e37a82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followTarget: {fileID: 25297597}
+  lerpSmoothing: 5
 --- !u!1 &1623109688
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,8 +730,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf05c31bfcdd0ed49b1b9573d53ac737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveXSpeed: 15
-  amplitudeX: 4.5
+  moveXSpeed: 30
+  amplitudeX: 6.5
   isGravityEnabled: 0
   jumpImpulse: {x: 0, y: 10, z: 0}
   anim: {fileID: 1977885914}
@@ -702,6 +749,7 @@ Transform:
   m_Children:
   - {fileID: 1977885913}
   - {fileID: 1114016678}
+  - {fileID: 25297597}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -757,7 +805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyInput: {x: 0, y: 0}
   dragInput: {x: 0, y: 0}
-  dragSensitivity: 15
+  dragSensitivity: 12
 --- !u!114 &1917466698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -821,7 +869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2db7e17401e08b94697ecd7acce75ab1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2db7e17401e08b94697ecd7acce75ab1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -876,6 +924,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2011521122}
+  - component: {fileID: 2011521123}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -898,3 +947,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2011521123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011521121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bc0126b3cf35014eb3b70cf17f47e48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 10
+  minSpawnInterval: 1
+  maxSpawnInterval: 4
+  spawnHeightOffset: 20
+  platforms:
+  - prefab: {fileID: 3999261884167873156, guid: 488042f08db94004a821f75cc2abff03, type: 3}
+    minHeight: 0
+    maxHeight: 1e+34
+    randomWeight: 1
