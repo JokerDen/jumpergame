@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerCharacter : MonoBehaviour
@@ -6,9 +5,8 @@ public class PlayerCharacter : MonoBehaviour
     public float moveXSpeed;
     public float amplitudeX;
 
-    public bool isGravityEnabled;
-    
     private Vector3 currentSpeed;
+    private bool isGravityEnabled;
 
     [Header("Injections")]
     public Vector3 jumpImpulse;
@@ -44,6 +42,7 @@ public class PlayerCharacter : MonoBehaviour
 
     public void SetMove(float moveInput)
     {
+        if (!isGravityEnabled) return;
         // currentSpeed.x = Mathf.Clamp(moveInput * moveXSpeed, -amplitudeX, amplitudeX);
         
         var pos = transform.position;
@@ -51,5 +50,23 @@ public class PlayerCharacter : MonoBehaviour
         pos.x = Mathf.Clamp(pos.x, -amplitudeX, amplitudeX);
         transform.position = pos;
     }
-    
+
+    public void Hide()
+    {
+        anim.Rebind();
+        gameObject.SetActive(false);
+    }
+
+    public void Reset()
+    {
+        transform.position = Vector3.zero;
+        currentSpeed = Vector3.zero;
+        isGravityEnabled = false;
+        gameObject.SetActive(true);
+    }
+
+    public void StartJumping()
+    {
+        isGravityEnabled = true;
+    }
 }

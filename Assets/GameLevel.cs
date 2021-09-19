@@ -29,7 +29,7 @@ public class GameLevel : MonoBehaviour
 
     private void Update()
     {
-        var pH = GameManager.current.playerHeight;
+        var pH = GameManager.current.PlayerHeight;
         
         // while (lastSpawnPos - spawnHeightOffset < pH)
         if (lastSpawnPos - spawnHeightOffset < pH)  // one per frame but guarantee no recursion
@@ -73,5 +73,13 @@ public class GameLevel : MonoBehaviour
         Gizmos.color = Color.green;
         var hw = width * .5f;
         Gizmos.DrawLine(-Vector3.right * hw, Vector3.right * hw);
+    }
+
+    public void Reset()
+    {
+        foreach (var item in spawned)
+            Destroy(item.gameObject);
+        spawned.Clear();
+        lastSpawnPos = 0f;
     }
 }

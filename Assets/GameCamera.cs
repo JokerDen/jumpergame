@@ -17,4 +17,10 @@ public class GameCamera : MonoBehaviour
             transform.position = pos;
         }
     }
+
+    public void Reset()
+    {
+        if (followTarget != null)
+            transform.position = followTarget.position;
+    }
 }

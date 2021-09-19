@@ -11,9 +11,9 @@ public class PlayerInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void Update()
     {
-        
         if (Input.GetKeyDown(KeyCode.R))
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameManager.current.RestartGameplay();
     }
 
     public void OnPointerDown(PointerEventData eventData)
