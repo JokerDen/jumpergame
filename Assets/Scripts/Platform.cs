@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
+    [HideInInspector]
+    public PlayerEvent onTouch = new PlayerEvent();
+    
+    [Header("Positioning")]
     public float amplitudeX;
-
-    public bool destructible;
-
-    public float movingSpeed;
+    public Vector3 movingSpeed;
     private int movingDirection;
-
+    
     private void Start()
     {
         var pos = transform.position;
@@ -22,8 +23,10 @@ public class Platform : MonoBehaviour
     {
         var pos = transform.position;
         
-        if (movingSpeed != 0f)
-            pos.x += movingSpeed * movingDirection * Time.deltaTime;
+        // if (movingSpeed != 0f)
+        if (movingSpeed.magnitude > 0f)
+            // pos.x += movingSpeed * movingDirection * Time.deltaTime;
+            pos += movingDirection * Time.deltaTime * movingSpeed;
 
         // handle platform outside amplitude
         while (pos.x > amplitudeX || pos.x < -amplitudeX) 
@@ -35,14 +38,5 @@ public class Platform : MonoBehaviour
                 pos.x = -amplitudeX - (pos.x + amplitudeX);
         }
         transform.position = pos;
-    }
-
-    public void HandleTouch()
-    {
-        if (destructible)
-        {
-            // todo: create fx, at least tween
-            Destroy(gameObject);
-        }
     }
 }

@@ -1,23 +1,29 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5077872006672670353
+--- !u!114 &7236448643921998155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8077852988588499685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82f35c9c858db9641b2c4d5d4ceb1602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostForce: 15
+  boostDuration: 2
+--- !u!1001 &5159567165211328609
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3245022502724801542, guid: 488042f08db94004a821f75cc2abff03, type: 3}
-      propertyPath: movingSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245022502724801542, guid: 488042f08db94004a821f75cc2abff03, type: 3}
-      propertyPath: movingSpeed.x
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3999261884167873156, guid: 488042f08db94004a821f75cc2abff03, type: 3}
       propertyPath: m_Name
-      value: platform moving
+      value: platform booster
       objectReference: {fileID: 0}
     - target: {fileID: 3999261884167873159, guid: 488042f08db94004a821f75cc2abff03, type: 3}
       propertyPath: m_RootOrder
@@ -66,6 +72,12 @@ PrefabInstance:
     - target: {fileID: 3999261885323065815, guid: 488042f08db94004a821f75cc2abff03, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ec04b2b29a61c0642942945288959e2d, type: 2}
-    m_RemovedComponents: []
+      objectReference: {fileID: 2100000, guid: 882aeee994483c94e84b6220d8e270ab, type: 2}
+    m_RemovedComponents:
+    - {fileID: 2111688504405287064, guid: 488042f08db94004a821f75cc2abff03, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 488042f08db94004a821f75cc2abff03, type: 3}
+--- !u!1 &8077852988588499685 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3999261884167873156, guid: 488042f08db94004a821f75cc2abff03, type: 3}
+  m_PrefabInstance: {fileID: 5159567165211328609}
+  m_PrefabAsset: {fileID: 0}

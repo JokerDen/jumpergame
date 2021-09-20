@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3999261884167873159}
   - component: {fileID: 3245022502724801542}
   - component: {fileID: 5592661850148737785}
+  - component: {fileID: 2111688504405287064}
   m_Layer: 0
   m_Name: platform
   m_TagString: Untagged
@@ -45,8 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 553ee690bb0cf1842bd2da5b6aef08df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onTouch:
+    m_PersistentCalls:
+      m_Calls: []
   amplitudeX: 5
-  destructible: 0
   movingSpeed: 0
 --- !u!65 &5592661850148737785
 BoxCollider:
@@ -61,6 +64,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.5, y: 1, z: 1}
   m_Center: {x: 0, y: -0.5, z: 0}
+--- !u!114 &2111688504405287064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3999261884167873156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e55817b74b0244f0959ec892ab023e10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 12
 --- !u!1 &3999261885323065813
 GameObject:
   m_ObjectHideFlags: 0

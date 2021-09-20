@@ -747,6 +747,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2011521122}
     m_Modifications:
+    - target: {fileID: 3245022502724801542, guid: 488042f08db94004a821f75cc2abff03, type: 3}
+      propertyPath: amplitudeX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3999261884167873156, guid: 488042f08db94004a821f75cc2abff03, type: 3}
       propertyPath: m_Name
       value: platform (base)
@@ -799,8 +803,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3245022502724801542, guid: 488042f08db94004a821f75cc2abff03, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 488042f08db94004a821f75cc2abff03, type: 3}
 --- !u!4 &1166767955 stripped
 Transform:
@@ -1030,7 +1033,6 @@ MonoBehaviour:
   moveXSpeed: 30
   moveRotation: 60
   amplitudeX: 6.5
-  jumpImpulse: {x: 0, y: 12, z: 0}
   anim: {fileID: 1977885914}
   legs: {fileID: 1114016679}
 --- !u!4 &1623109690
@@ -1217,7 +1219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2db7e17401e08b94697ecd7acce75ab1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2db7e17401e08b94697ecd7acce75ab1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1327,3 +1329,7 @@ MonoBehaviour:
     minHeight: 30
     maxHeight: 1e+34
     randomWeight: 1
+  - prefab: {fileID: 8077852988588499685, guid: 7f33547a0fd3a954696dcc5a0591255d, type: 3}
+    minHeight: 15
+    maxHeight: 1e+34
+    randomWeight: 0.05

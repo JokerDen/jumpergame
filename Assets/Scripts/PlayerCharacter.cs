@@ -1,23 +1,31 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerCharacter : MonoBehaviour
 {
     public float moveXSpeed;
     public float moveRotation;
     public float amplitudeX;
-    
+
     private Vector3 currentSpeed;
+    private Vector3 boostSpeed;
+    private float boostDuration;
     private bool isGravityEnabled;
 
     [Header("Injections")]
-    public Vector3 jumpImpulse;
     public Animator anim;
+
     public SphereCaster legs;
 
     // private void FixedUpdate()
     private void Update()
     {
-        if (isGravityEnabled)
+        if (boostDuration > 0f)
+        {
+            currentSpeed = boostSpeed;
+            boostDuration -= Time.deltaTime;
+        }
+        else if (isGravityEnabled)
             currentSpeed += Physics.gravity * Time.deltaTime;
 
         var step = currentSpeed * Time.deltaTime;
@@ -26,15 +34,14 @@ public class PlayerCharacter : MonoBehaviour
             var col = legs.Cast(step);
             if (col != null)
             {
+                // GetComponent is not effective in Runtime on Update but in current game requirements (rare touches) is ok
                 var touchedPlatform = col.GetComponent<Platform>();
                 if (touchedPlatform != null)
-                    touchedPlatform.HandleTouch();
-                
-                Jump();
+                    touchedPlatform.onTouch.Invoke(this);
                 return;
             }
         }
-        
+
         var pos = transform.position;
         pos += step;
         pos.x = Mathf.Clamp(pos.x, -amplitudeX, amplitudeX);
@@ -46,12 +53,12 @@ public class PlayerCharacter : MonoBehaviour
         transform.eulerAngles = angles;
     }
 
-    private void Jump()
+    public void Jump(float force)
     {
         anim.ResetTrigger("Jump");
         anim.SetTrigger("Jump");
-        
-        currentSpeed = jumpImpulse;
+
+        currentSpeed = Vector3.up * force;
     }
 
     public void SetMove(float moveInput)
@@ -84,4 +91,15 @@ public class PlayerCharacter : MonoBehaviour
     {
         isGravityEnabled = true;
     }
+
+    public void SetBoost(float boostForce, float duration)
+    {
+        boostSpeed = Vector3.up * boostForce;
+        boostDuration = duration;
+    }
+}
+
+[System.Serializable]
+public class PlayerEvent : UnityEvent<PlayerCharacter>
+{
 }
