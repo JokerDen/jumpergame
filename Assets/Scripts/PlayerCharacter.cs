@@ -7,6 +7,8 @@ public class PlayerCharacter : MonoBehaviour
     public float moveRotation;
     public float amplitudeX;
 
+    public ParticleSystem boost;
+
     private Vector3 currentSpeed;
     private Vector3 boostSpeed;
     private float boostDuration;
