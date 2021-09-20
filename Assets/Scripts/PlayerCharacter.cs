@@ -20,11 +20,27 @@ public class PlayerCharacter : MonoBehaviour
             currentSpeed += Physics.gravity * Time.deltaTime;
 
         var step = currentSpeed * Time.deltaTime;
-        if (currentSpeed.y < 0f && legs.Cast(step))
+        if (currentSpeed.y < 0f)
+        {
+            var col = legs.Cast(step);
+            if (col != null)
+            {
+                var touchedPlatform = col.GetComponent<Platform>();
+                if (touchedPlatform != null)
+                {
+                    touchedPlatform.HandleTouch();
+                }
+                
+                Jump();
+                return;
+            }
+        }
+        
+        /*if (currentSpeed.y < 0f && legs.Cast(step))
         {
             Jump();
             return;
-        }
+        }*/
         
         var pos = transform.position;
         pos += step;
