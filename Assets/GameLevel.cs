@@ -5,8 +5,6 @@ using Random = UnityEngine.Random;
 
 public class GameLevel : MonoBehaviour
 {
-    public float width;
-    
     public float minSpawnInterval;
     public float maxSpawnInterval;
     public float spawnHeightOffset;
@@ -31,8 +29,8 @@ public class GameLevel : MonoBehaviour
     {
         var pH = GameManager.current.PlayerHeight;
         
-        // while (lastSpawnPos - spawnHeightOffset < pH)
-        if (lastSpawnPos - spawnHeightOffset < pH)  // one per frame but guarantee no recursion
+        while (lastSpawnPos - spawnHeightOffset < pH)
+        // if (lastSpawnPos - spawnHeightOffset < pH)  // one per frame but guarantee no recursion
         {
             lastSpawnPos += Random.Range(minSpawnInterval, maxSpawnInterval);
             Spawn(lastSpawnPos);
@@ -60,19 +58,10 @@ public class GameLevel : MonoBehaviour
             if (chance <= totalWeight)
             {
                 var pos = Vector3.up * posY;
-                var hw = width * .5f;
-                pos.x = Random.Range(-hw, hw);
                 spawned.Add(Instantiate(genParams.prefab, pos, Quaternion.identity, transform));
                 return;
             }
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        var hw = width * .5f;
-        Gizmos.DrawLine(-Vector3.right * hw, Vector3.right * hw);
     }
 
     public void Reset()

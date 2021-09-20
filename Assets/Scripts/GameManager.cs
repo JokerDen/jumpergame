@@ -53,8 +53,8 @@ public class GameManager : MonoBehaviour
         }
 
         var moveInput = Mathf.Clamp(inputX, -1f, 1f);
-        player.SetMove(moveInput * Time.deltaTime);
-        // player.SetMove(moveInput);
+        // player.SetMove(moveInput * Time.deltaTime);
+        player.SetMove(moveInput);
 
         var playerY = player.transform.position.y;
         if (playerY > playerHeight)

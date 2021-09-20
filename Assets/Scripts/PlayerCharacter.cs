@@ -3,8 +3,9 @@ using UnityEngine;
 public class PlayerCharacter : MonoBehaviour
 {
     public float moveXSpeed;
+    public float moveRotation;
     public float amplitudeX;
-
+    
     private Vector3 currentSpeed;
     private bool isGravityEnabled;
 
@@ -27,25 +28,22 @@ public class PlayerCharacter : MonoBehaviour
             {
                 var touchedPlatform = col.GetComponent<Platform>();
                 if (touchedPlatform != null)
-                {
                     touchedPlatform.HandleTouch();
-                }
                 
                 Jump();
                 return;
             }
         }
         
-        /*if (currentSpeed.y < 0f && legs.Cast(step))
-        {
-            Jump();
-            return;
-        }*/
-        
         var pos = transform.position;
         pos += step;
         pos.x = Mathf.Clamp(pos.x, -amplitudeX, amplitudeX);
         transform.position = pos;
+
+        var angles = transform.eulerAngles;
+        var angleLerp = Mathf.InverseLerp(-moveXSpeed, moveXSpeed, currentSpeed.x);
+        angles.y = -Mathf.Lerp(-moveRotation, moveRotation, angleLerp);
+        transform.eulerAngles = angles;
     }
 
     private void Jump()
@@ -59,12 +57,13 @@ public class PlayerCharacter : MonoBehaviour
     public void SetMove(float moveInput)
     {
         if (!isGravityEnabled) return;
-        // currentSpeed.x = Mathf.Clamp(moveInput * moveXSpeed, -amplitudeX, amplitudeX);
-        
-        var pos = transform.position;
+        currentSpeed.x = Mathf.Clamp(moveInput * moveXSpeed, -moveXSpeed, moveXSpeed);
+
+        // moveXSpeed = moveInput * moveXSpeed;
+        /*var pos = transform.position;
         pos.x += moveInput * moveXSpeed;
         pos.x = Mathf.Clamp(pos.x, -amplitudeX, amplitudeX);
-        transform.position = pos;
+        transform.position = pos;*/
     }
 
     public void Hide()
