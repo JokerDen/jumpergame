@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f35c9c858db9641b2c4d5d4ceb1602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostForce: 15
-  boostDuration: 2
+  boostForce: 30
+  boostDuration: 1.5
 --- !u!1001 &5159567165211328609
 PrefabInstance:
   m_ObjectHideFlags: 0

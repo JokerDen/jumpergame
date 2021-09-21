@@ -67,7 +67,8 @@ public class GameLevel : MonoBehaviour
     public void Reset()
     {
         foreach (var item in spawned)
-            Destroy(item.gameObject);
+            if (item != null)
+                Destroy(item.gameObject);
         spawned.Clear();
         lastSpawnPos = 0f;
     }

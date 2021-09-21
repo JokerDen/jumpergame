@@ -5,7 +5,8 @@ public class GameCamera : MonoBehaviour
     public Transform followTarget;
 
     public float lerpSmoothing;
-    
+    public Camera cam;
+
     private void LateUpdate()
     {
         if (followTarget != null)

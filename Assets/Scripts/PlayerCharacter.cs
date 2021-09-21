@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,6 +20,8 @@ public class PlayerCharacter : MonoBehaviour
 
     public SphereCaster legs;
 
+    public List<Platform> touched = new List<Platform>();
+
     // private void FixedUpdate()
     private void Update()
     {
@@ -39,7 +42,7 @@ public class PlayerCharacter : MonoBehaviour
                 // GetComponent is not effective in Runtime on Update but in current game requirements (rare touches) is ok
                 var touchedPlatform = col.GetComponent<Platform>();
                 if (touchedPlatform != null)
-                    touchedPlatform.onTouch.Invoke(this);
+                    HandlePlatform(touchedPlatform);
                 return;
             }
         }
@@ -53,6 +56,17 @@ public class PlayerCharacter : MonoBehaviour
         var angleLerp = Mathf.InverseLerp(-moveXSpeed, moveXSpeed, currentSpeed.x);
         angles.y = -Mathf.Lerp(-moveRotation, moveRotation, angleLerp);
         transform.eulerAngles = angles;
+    }
+
+    private void HandlePlatform(Platform platform)
+    {
+        platform.onTouch.Invoke(this);
+        
+        if (touched.Contains(platform)) return;
+        
+        touched.Add(platform);
+
+        GameManager.current.ui.gameplay.ShowTouch(transform.position, touched.Count);
     }
 
     public void Jump(float force)
@@ -78,6 +92,7 @@ public class PlayerCharacter : MonoBehaviour
 
     public void Reset()
     {
+        touched.Clear();
         transform.position = Vector3.zero;
         currentSpeed = Vector3.zero;
         isGravityEnabled = false;

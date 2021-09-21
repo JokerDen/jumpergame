@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         if (isFell)
         {
             failed = true;
-            autoStart = true;
+            // autoStart = true;
             FailGameplay();
         }
     }
