@@ -44,25 +44,33 @@ public class GameManager : MonoBehaviour
     
     void Update()
     {
-        // float inputX = input.keyInput.x + input.dragInput.x;
         float inputX = input.GetInputDirection().x;
-        if (!started && inputX != 0f)
+        
+        var isStartingInput = !started && inputX != 0f;
+        if (isStartingInput)
         {
             started = true;
-            player.StartJumping();
+            ui.ShowStartGameplay(StartGameplay);
         }
-
-        var moveInput = Mathf.Clamp(inputX, -1f, 1f);
-        // player.SetMove(moveInput * Time.deltaTime);
-        player.SetMove(moveInput);
+        
+        player.SetMoveX(inputX);
 
         var playerY = player.transform.position.y;
-        if (playerY > playerHeight)
+        
+        var isCurrentHighestY = playerY > playerHeight;
+        if (isCurrentHighestY)
             playerHeight = playerY;
-        if (playerY < playerHeight - failHeight)
+        
+        var isFell = playerY < playerHeight - failHeight;
+        if (isFell)
         {
             ui.failScreen.Show();
             player.Hide();
         }
+    }
+
+    private void StartGameplay()
+    {
+        player.StartJumping();
     }
 }

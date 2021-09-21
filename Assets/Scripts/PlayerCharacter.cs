@@ -63,16 +63,11 @@ public class PlayerCharacter : MonoBehaviour
         currentSpeed = Vector3.up * force;
     }
 
-    public void SetMove(float moveInput)
+    public void SetMoveX(float moveInput)
     {
         if (!isGravityEnabled) return;
-        currentSpeed.x = Mathf.Clamp(moveInput * moveXSpeed, -moveXSpeed, moveXSpeed);
-
-        // moveXSpeed = moveInput * moveXSpeed;
-        /*var pos = transform.position;
-        pos.x += moveInput * moveXSpeed;
-        pos.x = Mathf.Clamp(pos.x, -amplitudeX, amplitudeX);
-        transform.position = pos;*/
+        moveInput = Mathf.Clamp(moveInput, -1f, 1f);
+        currentSpeed.x = moveInput * moveXSpeed;
     }
 
     public void Hide()
