@@ -22,7 +22,7 @@ public class StartUI : MonoBehaviour
         animContainer.gameObject.SetActive(false);
     }
 
-    public void ShowStart(Action callback)
+    public void ShowIntro(Action callback)
     {
         if (showAnim != null)
             StopCoroutine(showAnim);
@@ -46,6 +46,10 @@ public class StartUI : MonoBehaviour
         }
         
         callback.Invoke();
+    }
+
+    public void Hide()
+    {
         gameObject.SetActive(false);
     }
 }

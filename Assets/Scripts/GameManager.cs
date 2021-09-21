@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public PlayerCharacter player;
     public PlayerInput input;
+
+    public ScoreManager score;
 
     public GameLevel level;
     public GameUI ui;
@@ -34,23 +37,33 @@ public class GameManager : MonoBehaviour
 
     public void RestartGameplay()
     {
+        bool notFirst = started;
         started = false;
         player.Reset();
+        score.Reset();
         cam.Reset();
         level.Reset();
         ui.ShowTitle();
         playerHeight = 0f;
+        if (notFirst)
+            StartGameplay();
     }
     
     void Update()
     {
+        // DEV
+        if (Input.GetKeyDown(KeyCode.R))
+            RestartGameplay();
+        if (Input.GetKeyDown(KeyCode.C))
+            PlayerPrefs.DeleteAll();
+
         float inputX = input.GetInputDirection().x;
         
         var isStartingInput = !started && inputX != 0f;
         if (isStartingInput)
         {
             started = true;
-            ui.ShowStartGameplay(StartGameplay);
+            ui.ShowIntro(StartGameplay);
         }
         
         player.SetMoveX(inputX);
@@ -59,18 +72,25 @@ public class GameManager : MonoBehaviour
         
         var isCurrentHighestY = playerY > playerHeight;
         if (isCurrentHighestY)
+        {
             playerHeight = playerY;
+            score.SetScoreByHeight(playerHeight);
+        }
         
         var isFell = playerY < playerHeight - failHeight;
         if (isFell)
-        {
-            ui.failScreen.Show();
-            player.Hide();
-        }
+            FailGameplay();
+    }
+
+    private void FailGameplay()
+    {
+        ui.failScreen.Show();
+        player.Hide();
     }
 
     private void StartGameplay()
     {
+        ui.ShowGameplay();
         player.StartJumping();
     }
 }

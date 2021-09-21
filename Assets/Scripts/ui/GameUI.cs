@@ -5,16 +5,26 @@ public class GameUI : MonoBehaviour
 {
     public StartUI titleScreen;
     public FailUI failScreen;
+    public GameplayUI gameplay;
 
-    public void ShowStartGameplay(Action callback)
+    public void ShowIntro(Action callback)
     {
+        gameplay.Hide();
         failScreen.Hide();
-        titleScreen.ShowStart(callback);
+        titleScreen.ShowIntro(callback);
     }
 
     public void ShowTitle()
     {
+        gameplay.Hide();
         failScreen.Hide();
         titleScreen.Show();
+    }
+
+    public void ShowGameplay()
+    {
+        gameplay.Show();
+        titleScreen.Hide();
+        failScreen.Hide();
     }
 }

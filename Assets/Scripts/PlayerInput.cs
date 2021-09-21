@@ -9,13 +9,6 @@ public class PlayerInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public float dragSensitivity;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-            // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            GameManager.current.RestartGameplay();
-    }
-
     public void OnPointerDown(PointerEventData eventData)
     {
         dragInput = Vector2.zero;
