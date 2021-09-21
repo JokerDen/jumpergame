@@ -1,25 +1,25 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
     public PlayerCharacter player;
     public PlayerInput input;
-
     public ScoreManager score;
-
     public GameLevel level;
     public GameUI ui;
     public GameCamera cam;
-
+    
     private bool started;
-
+    private bool failed;
     private float playerHeight;
     public float PlayerHeight => playerHeight;
-
+    [SerializeField] bool autoStart;
+    [FormerlySerializedAs("failHeight")] [SerializeField] float failHeightOffset;
+    public float FailHeight => playerHeight - failHeightOffset;
+    
     public static GameManager current;
-
-    public float failHeight;
 
     private void Awake()
     {
@@ -37,16 +37,14 @@ public class GameManager : MonoBehaviour
 
     public void RestartGameplay()
     {
-        bool notFirst = started;
         started = false;
+        failed = false;
         player.Reset();
         score.Reset();
         cam.Reset();
         level.Reset();
         ui.ShowTitle();
         playerHeight = 0f;
-        if (notFirst)
-            StartGameplay();
     }
     
     void Update()
@@ -59,8 +57,8 @@ public class GameManager : MonoBehaviour
 
         float inputX = input.GetInputDirection().x;
         
-        var isStartingInput = !started && inputX != 0f;
-        if (isStartingInput)
+        var startIntro = !started && (inputX != 0f || autoStart);
+        if (startIntro)
         {
             started = true;
             ui.ShowIntro(StartGameplay);
@@ -77,14 +75,18 @@ public class GameManager : MonoBehaviour
             score.SetScoreByHeight(playerHeight);
         }
         
-        var isFell = playerY < playerHeight - failHeight;
+        var isFell = !failed && playerY < FailHeight;
         if (isFell)
+        {
+            failed = true;
+            autoStart = true;
             FailGameplay();
+        }
     }
 
     private void FailGameplay()
     {
-        ui.failScreen.Show();
+        ui.ShowFail();
         player.Hide();
     }
 

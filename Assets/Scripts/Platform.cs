@@ -38,5 +38,8 @@ public class Platform : MonoBehaviour
                 pos.x = -amplitudeX - (pos.x + amplitudeX);
         }
         transform.position = pos;
+
+        if (pos.y < GameManager.current.FailHeight)
+            GameManager.current.level.RemovePlatform(this);
     }
 }

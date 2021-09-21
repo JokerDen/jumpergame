@@ -27,4 +27,11 @@ public class GameUI : MonoBehaviour
         titleScreen.Hide();
         failScreen.Hide();
     }
+
+    public void ShowFail()
+    {
+        failScreen.Show();
+        titleScreen.Hide();
+        gameplay.Hide();
+    }
 }

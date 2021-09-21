@@ -10,6 +10,7 @@ public class StartUI : MonoBehaviour
     public int introDuration;
 
     public Transform animContainer;
+    public GameObject titleLogo;
 
     private Coroutine showAnim;
 
@@ -19,11 +20,13 @@ public class StartUI : MonoBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
+        titleLogo.SetActive(true);
         animContainer.gameObject.SetActive(false);
     }
 
     public void ShowIntro(Action callback)
     {
+        Show();
         if (showAnim != null)
             StopCoroutine(showAnim);
         showAnim = StartCoroutine(ShowAnim(callback));
@@ -32,6 +35,7 @@ public class StartUI : MonoBehaviour
     private IEnumerator ShowAnim(Action callback)
     {
         animContainer.gameObject.SetActive(true);
+        titleLogo.SetActive(false);
         
         for (int i = 0; i < introDuration; i++)
         {

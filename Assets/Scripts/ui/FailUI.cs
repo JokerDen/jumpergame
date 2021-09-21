@@ -10,7 +10,6 @@ public class FailUI : MonoBehaviour
     public ScoreUI bestScore;
 
     public GameObject newBest;
-    public Text bestText;
 
     public float showDelay;
     public float bestDuration;
@@ -42,24 +41,25 @@ public class FailUI : MonoBehaviour
         yield return new WaitForSeconds(showDelay);
 
         var best = GameManager.current.score.GetBestScore();
-        bestScore.Show(best);
-
-        yield return new WaitForSeconds(showDelay);
+        // if (best > 0)
+        {
+            bestScore.Show(best);
+            yield return new WaitForSeconds(showDelay);
+        }
 
         var score = GameManager.current.score.CurrentValue;
+        
+        if (score > best)
+            GameManager.current.score.SetBestScore(score);
 
-        var dur = bestDuration * Mathf.Clamp01((float)score / best);
+        float dur = bestDuration;
+        if (best > 0)
+            dur = bestDuration * Mathf.Clamp01((float)score / best);
         
         playerScore.Show(0);
-        
-        playerScore.ShowCount(score, dur/*, () => 
-        {
-            var c = bestText.color;
-            Color.RGBToHSV(c, out float H, out float S, out float V);
-            c = Color.HSVToRGB(Random.value, S, V);
-            bestText.color = c;
-        }*/);
+        playerScore.ShowCount(score, dur);
 
+        // if (score < best || best <= 0)
         if (score < best)
             yield return new WaitForSeconds(dur);
         else
@@ -69,9 +69,6 @@ public class FailUI : MonoBehaviour
             newBest.SetActive(true);
             var bestDur = dur - noBestDur;
             bestScore.ShowCount(score, bestDur);
-            
-            GameManager.current.score.SetBestScore(score);
-            
             yield return new WaitForSeconds(bestDur);
         }
         

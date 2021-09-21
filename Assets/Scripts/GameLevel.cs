@@ -14,14 +14,14 @@ public class GameLevel : MonoBehaviour
     [Serializable]
     public struct PlatformGenParams
     {
-        public GameObject prefab;
+        public Platform prefab;
         public float minHeight;
         public float maxHeight;
         public float randomWeight;
     }
     public PlatformGenParams[] platforms;
 
-    private List<GameObject> spawned = new List<GameObject>();
+    private List<Platform> spawned = new List<Platform>();
 
     private List<PlatformGenParams> possibleCache = new List<PlatformGenParams>();
 
@@ -70,5 +70,13 @@ public class GameLevel : MonoBehaviour
             Destroy(item.gameObject);
         spawned.Clear();
         lastSpawnPos = 0f;
+    }
+
+    public void RemovePlatform(Platform platform)
+    {
+        if (!spawned.Contains(platform)) return;
+
+        spawned.Remove(platform);
+        Destroy(platform.gameObject);
     }
 }

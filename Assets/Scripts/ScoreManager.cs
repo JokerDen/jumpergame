@@ -21,7 +21,7 @@ public class ScoreManager : MonoBehaviour
 
     public void SetBestScore(int value)
     {
-        PlayerPrefs.SetFloat(BEST_SCORE, value);
+        PlayerPrefs.SetInt(BEST_SCORE, value);
         PlayerPrefs.Save();
     }
 
