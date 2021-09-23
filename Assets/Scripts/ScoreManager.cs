@@ -16,7 +16,7 @@ public class ScoreManager : MonoBehaviour
         
     public int GetBestScore()
     {
-        return PlayerPrefs.GetInt(BEST_SCORE, 0);
+        return PlayerPrefs.GetInt(BEST_SCORE, 1000);
     }
 
     public void SetBestScore(int value)

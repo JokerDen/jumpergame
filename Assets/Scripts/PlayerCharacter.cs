@@ -8,7 +8,9 @@ public class PlayerCharacter : MonoBehaviour
     public float moveRotation;
     public float amplitudeX;
 
-    public ParticleSystem boost;
+    public Transform jetpackContainer;
+    public Jetpack jetpackPrefab;
+    private Jetpack activeJetpack;
 
     private Vector3 currentSpeed;
     private Vector3 boostSpeed;
@@ -29,6 +31,8 @@ public class PlayerCharacter : MonoBehaviour
         {
             currentSpeed = boostSpeed;
             boostDuration -= Time.deltaTime;
+            if (boostDuration <= 0f)
+                activeJetpack.Detach();
         }
         else if (isGravityEnabled)
             currentSpeed += Physics.gravity * Time.deltaTime;
@@ -108,6 +112,12 @@ public class PlayerCharacter : MonoBehaviour
     {
         boostSpeed = Vector3.up * boostForce;
         boostDuration = duration;
+
+        if (activeJetpack != null)
+            Destroy(activeJetpack);
+
+        activeJetpack = Instantiate(jetpackPrefab);
+        activeJetpack.Attach(jetpackContainer);
     }
 }
 

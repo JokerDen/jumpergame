@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
+    public Transform model;
+    
     [HideInInspector]
     public PlayerEvent onTouch = new PlayerEvent();
     

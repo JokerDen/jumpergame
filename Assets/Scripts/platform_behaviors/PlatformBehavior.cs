@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Platform))]
 public class PlatformBehavior : MonoBehaviour
 {
-    private Platform platform;
+    protected Platform platform;
     
     private void Awake()
     {
